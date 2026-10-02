@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^habits/([0-9]+)/toggle/?$ index.php?id=$1&action=toggle [QSA,L]
+    RewriteRule ^habits/([0-9]+)/?$ index.php?id=$1 [QSA,L]
+    RewriteRule ^habits/?$ index.php [QSA,L]
+</IfModule>

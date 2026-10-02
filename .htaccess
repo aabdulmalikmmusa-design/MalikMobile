@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /MalikMobile/
+
+    # Handle PATCH /api/habits/123/toggle
+    RewriteRule ^api/habits/([0-9]+)/toggle/?$ api/index.php?id=$1&action=toggle [QSA,L]
+
+    # Handle DELETE and GET with habit ID: /api/habits/123
+    RewriteRule ^api/habits/([0-9]+)/?$ api/index.php?id=$1 [QSA,L]
+
+    # Handle /api/habits
+    RewriteRule ^api/habits/?$ api/index.php [QSA,L]
+</IfModule>
+
+# Set default charset
+AddDefaultCharset UTF-8

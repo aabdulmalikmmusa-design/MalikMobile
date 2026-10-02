@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Daily Habit Tracker</title>
+  
+  <!-- SEO & Description -->
+  <meta name="description" content="Track your daily habits, stay consistent, and become your best self with this daily habit tracker app.">
+  <meta name="application-name" content="Habits">
+  
+  <!-- PWA Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Android & General Web App Meta -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#18143C">
+  
+  <!-- iOS Safari Full-Screen & Standalone Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Habits">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+  <link rel="shortcut icon" href="assets/icon-192.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+  <!-- iPhone Mobile Mockup Frame -->
+  <main class="device-wrapper">
+    <div class="iphone-frame">
+      <div class="phone-inner">
+
+        <!-- Status Bar (Clean without time, battery, or network icons) -->
+        <div class="status-bar">
+          <!-- Dynamic Island -->
+          <div class="dynamic-island">
+            <div class="camera-lens"></div>
+          </div>
+        </div>
+
+        <!-- Launch Welcome & Authentication Screen -->
+        <div class="auth-launch-screen" id="auth-launch-screen">
+          <div class="auth-launch-content">
+            <div class="auth-logo-badge">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#818CF8" stroke="#818CF8"/>
+              </svg>
+            </div>
+            
+            <h2 class="auth-launch-title">Daily Habits</h2>
+            <p class="auth-launch-subtitle">Build powerful routines, track streaks, and achieve consistency every single day.</p>
+
+            <div class="auth-launch-actions">
+              <button class="btn-auth-primary" id="btn-open-create">Create Account</button>
+              <button class="btn-auth-secondary" id="btn-open-login">Log In</button>
+              <button class="btn-auth-guest" id="btn-auth-guest">Continue as Guest</button>
+            </div>
+          </div>
+
+          <!-- Auth Sliding Sheet for Login & Register -->
+          <div class="auth-sheet" id="auth-sheet">
+            <div class="modal-handle"></div>
+            <div class="auth-sheet-header">
+              <h3 class="auth-sheet-title" id="auth-sheet-title">Log In</h3>
+              <button class="auth-sheet-close" id="btn-close-auth-sheet" type="button">&times;</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" class="auth-form">
+              <div class="form-group">
+                <label class="form-label" for="login-email">Email or Username</label>
+                <input type="text" class="form-input" id="login-email" placeholder="name@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="login-password">Password</label>
+                <input type="password" class="form-input" id="login-password" placeholder="••••••••" required>
+              </div>
+              <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+              <p class="auth-switch-text">
+                Don't have an account? <a href="#" id="link-to-register">Create Account</a>
+              </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-register" class="auth-form" style="display: none;">
+              <div class="form-group">
+                <label class="form-label" for="register-name">Full Name</label>
+                <input type="text" class="form-input" id="register-name" placeholder="e.g. Yassine Nasri" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="register-email">Email Address</label>
+                <input type="email" class="form-input" id="register-email" placeholder="name@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="register-password">Password</label>
+                <input type="password" class="form-input" id="register-password" placeholder="••••••••" required minlength="4">
+              </div>
+              <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+              <p class="auth-switch-text">
+                Already have an account? <a href="#" id="link-to-login">Log In</a>
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <!-- In-App Header -->
+        <div class="app-header">
+          <div class="header-left">
+            <button class="btn-menu" aria-label="Menu" id="btn-menu" title="Menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <h2 class="app-page-title">Habits</h2>
+          </div>
+          <div class="header-right">
+            <div class="user-avatar" id="user-avatar" title="User Profile: YN">YN</div>
+          </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="app-scroll-content">
+          
+          <!-- Today's Habits Hero Progress Card -->
+          <div class="today-progress-card">
+            <div class="progress-info">
+              <span class="progress-label">Today's Habits</span>
+              <span class="progress-count" id="progress-count">0/5 Done</span>
+              <span class="progress-subtext" id="progress-subtext">Keep going, you're doing great!</span>
+            </div>
+            
+            <div class="progress-ring-container">
+              <svg class="progress-ring-svg" viewBox="0 0 80 80">
+                <circle class="ring-circle-bg" cx="40" cy="40" r="34" />
+                <circle class="ring-circle-val" id="progress-ring-val" cx="40" cy="40" r="34" />
+              </svg>
+              <span class="progress-percentage" id="progress-percentage">0%</span>
+            </div>
+          </div>
+
+          <!-- Section: Your Habits -->
+          <div class="habits-section-header">
+            <h3 class="section-title">Your Habits</h3>
+          </div>
+
+          <!-- Habits Dynamic List Container -->
+          <div class="habits-list" id="habits-list">
+            <!-- Dynamically populated via Vanilla JS from /api/habits -->
+          </div>
+
+        </div>
+
+        <!-- Floating Action Button (FAB) -->
+        <button class="fab-add-btn" id="fab-add" title="Add new habit" aria-label="Add Habit">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+
+        <!-- Bottom Navigation Bar (App Related Tab) -->
+        <nav class="bottom-nav-bar">
+          <button class="nav-item active" title="Habits" id="nav-item-habits">
+            <div class="nav-icon-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <span>Habits</span>
+          </button>
+        </nav>
+
+        <!-- Home Indicator Bar -->
+        <div class="home-indicator"></div>
+
+        <!-- Confetti Celebration Canvas -->
+        <canvas id="confetti-canvas"></canvas>
+
+        <!-- In-App Toast -->
+        <div class="toast-container">
+          <div class="toast" id="toast">Habit updated!</div>
+        </div>
+
+        <!-- Modal Sheet for Add/Edit Habit -->
+        <div class="modal-overlay" id="habit-modal">
+          <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <h4 class="modal-title" id="modal-title">Create New Habit</h4>
+            
+            <form id="habit-form">
+              <input type="hidden" id="habit-id-input" value="">
+              
+              <div class="form-group">
+                <label class="form-label" for="habit-title-input">Habit Name</label>
+                <input type="text" class="form-input" id="habit-title-input" placeholder="e.g. Drink 8 Glasses Water" required maxlength="100">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Category Icon</label>
+                <div class="icon-selector-grid">
+                  <div class="icon-select-opt icon-water selected" data-icon="water" title="Water">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-book" data-icon="book" title="Reading">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-nosocial" data-icon="nosocial" title="No Social Media">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="2" y1="2" x2="22" y2="22" stroke-width="2"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-journal" data-icon="journal" title="Journaling">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-workout" data-icon="workout" title="Workout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="13" cy="4" r="2"/><path d="M13.9 8.5a1.5 1.5 0 0 0-1.8-.4l-3.3 1.8a1 1 0 0 0-.4 1.3l1.2 2.3-2.6 3.1a1 1 0 0 0 1.5 1.3l3.2-3.8.7-2.7 2.1 2.1v4.5a1 1 0 1 0 2 0v-5.2a1 1 0 0 0-.3-.7l-2.3-2.3.6-1.9 2.5 1.2a1 1 0 0 0 1.3-.5 1 1 0 0 0-.5-1.3l-3.3-1.6z"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-meditation" data-icon="meditation" title="Meditation">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M5 20l4-5 3 2 3-2 4 5"/></svg>
+                  </div>
+                  <div class="icon-select-opt icon-star" data-icon="star" title="Star / Goal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Frequency</label>
+                <div class="freq-pill-group">
+                  <div class="freq-pill selected" data-freq="Daily">Daily</div>
+                  <div class="freq-pill" data-freq="Weekdays">Weekdays</div>
+                  <div class="freq-pill" data-freq="Weekends">Weekends</div>
+                </div>
+              </div>
+
+              <div class="modal-actions">
+                <button type="button" class="btn-danger" id="btn-delete-habit" style="display: none;">Delete</button>
+                <button type="button" class="btn-cancel" id="btn-cancel-modal">Cancel</button>
+                <button type="submit" class="btn-primary" id="btn-submit-habit">Add Habit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
